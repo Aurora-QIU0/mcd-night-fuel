@@ -1,0 +1,22 @@
+{
+  "_note": "咖啡因含量为基于公开资料的估算值，仅供参考；实际含量以门店所用规格为准。",
+  "model": {
+    "half_life_hours": 5.0,
+    "sleep_buffer_hours": 3.0,
+    "description": "咖啡因在人体内半衰期约 5 小时；为保障入睡质量，建议在计划入睡时间前至少 3 小时停止摄入。"
+  },
+  "items": [
+    { "name": "麦咖啡美式（中杯）", "caffeine_mg": 150, "category": "coffee" },
+    { "name": "麦咖啡拿铁（中杯）", "caffeine_mg": 75, "category": "coffee" },
+    { "name": "麦咖啡卡布奇诺（中杯）", "caffeine_mg": 75, "category": "coffee" },
+    { "name": "麦咖啡摩卡（中杯）", "caffeine_mg": 90, "category": "coffee" },
+    { "name": "可口可乐（中杯）", "caffeine_mg": 50, "category": "soda" },
+    { "name": "零度可口可乐（中杯）", "caffeine_mg": 50, "category": "soda" },
+    { "name": "雪碧（中杯）", "caffeine_mg": 0, "category": "soda" },
+    { "name": "芬达（中杯）", "caffeine_mg": 0, "category": "soda" },
+    { "name": "橙汁", "caffeine_mg": 0, "category": "juice" },
+    { "name": "纯牛奶", "caffeine_mg": 0, "category": "dairy" },
+    { "name": "豆浆", "caffeine_mg": 0, "category": "dairy" },
+    { "name": "矿泉水", "caffeine_mg": 0, "category": "water" }
+  ]
+}
