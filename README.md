@@ -7,6 +7,7 @@
 早餐、午市、下午茶、晚餐、深夜、凌晨 —— 每个时段该点什么都帮你想好了。
 
 [![MCP](https://img.shields.io/badge/MCP-mcp.mcd.cn-DA291C)](https://open.mcd.cn/mcp)
+[![selftest](https://github.com/Aurora-QIU0/mcd-night-fuel/actions/workflows/test.yml/badge.svg)](https://github.com/Aurora-QIU0/mcd-night-fuel/actions/workflows/test.yml)
 [![License](https://img.shields.io/badge/License-MIT-FFC72C)](#-license)
 [![Built with WorkBuddy](https://img.shields.io/badge/Built%20with-WorkBuddy-4B8BBE)](https://www.workbuddy.cn)
 
@@ -225,9 +226,11 @@ mcd-night-fuel/
 ├── CONTEST_DECLARATION.md     # 参赛声明（官方模板，内容不可修改）
 ├── MCP_INTEGRATION.md         # MCP Server / Tool / 调用流程 / 业务价值
 ├── mcp-config.example.json    # 脱敏后的 MCP 配置示例
+├── .mcp.json                  # 同上（部分 MCP 客户端会自动读取该文件）
 ├── SKILL.md                   # Skill 定义（流程、时段策略、输出规范）
 ├── workbuddy.md               # WorkBuddy 开发对话上下文
 ├── LICENSE
+├── .github/workflows/test.yml # CI：六时段自测 + Token 泄漏扫描
 ├── data/
 │   └── caffeine_table.json    # 咖啡因含量与代谢参数（公开资料估算）
 └── scripts/

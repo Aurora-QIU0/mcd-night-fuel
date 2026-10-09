@@ -28,7 +28,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from caffeine_model import advise, latest_intake_time, parse_clock  # noqa: E402
 from meal_window import get_window  # noqa: E402
-from score_meals import diff_note, explain, rank_combos  # noqa: E402
+from score_meals import diff_note, explain, fmt_price, rank_combos  # noqa: E402
 
 DEMO_CONTEXT = {
     "now": "23:40",
@@ -182,9 +182,9 @@ def render(result: dict) -> str:
     w = result["window"]
     lines = [f"{w['emoji']} {w['label']}", ""]
 
-    price_line = f"¥{result['price']}"
+    price_line = f"¥{fmt_price(result['price'])}"
     if result.get("saved"):
-        price_line += f"（用券后，省 ¥{result['saved']}）"
+        price_line += f"（用券后，省 ¥{fmt_price(result['saved'])}）"
 
     lines.append(f"推荐：{result['recommendation']}")
     lines.append(f"{price_line} ｜ 热量 {result['calories']} kcal ｜ 蛋白 {result['protein']} g ｜ 钠 {result['sodium']} mg")
@@ -202,7 +202,7 @@ def render(result: dict) -> str:
         lines.append("")
         lines.append("备选：")
         for a in result["alternatives"]:
-            lines.append(f"· {a['name']} ¥{a['price']} —— {a['note']}")
+            lines.append(f"· {a['name']} ¥{fmt_price(a['price'])} —— {a['note']}")
 
     lines.append("")
     lines.append("要下单吗？走的是麦当劳官方支付链接，钱直接付给麦当劳，我不接触你的支付信息。")

@@ -1,0 +1,40 @@
+name: selftest
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: 六时段自测与配置校验
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 运行六时段自测
+        run: python scripts/selftest.py
+
+      - name: 校验 JSON 配置合法
+        run: |
+          python -c "import json;json.load(open('mcp-config.example.json'))"
+          python -c "import json;json.load(open('.mcp.json'))"
+          python -c "import json;json.load(open('scripts/sample-input.json'))"
+          python -c "import json;json.load(open('data/caffeine_table.json'))"
+          echo "所有 JSON 配置合法"
+
+      - name: 确认仓库内没有真实 Token
+        run: |
+          if grep -rnE 'Bearer [A-Za-z0-9_-]{15,}' \
+              --include='*.json' --include='*.md' --include='*.py' . ; then
+            echo "::error::发现疑似真实 Token，构建失败"
+            exit 1
+          fi
+          echo "未发现真实 Token"

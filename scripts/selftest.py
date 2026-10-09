@@ -62,7 +62,31 @@ def run() -> int:
         else:
             failures.append(clock)
 
-    print(f"==== 通过 {passed}/{len(CASES)} ====")
+    print(f"==== 时段策略 通过 {passed}/{len(CASES)} ====")
+
+    # 附加：咖啡因表的名称模糊匹配
+    from caffeine_model import lookup_item
+
+    lookup_cases = [
+        ("可口可乐（中杯）", True),
+        ("可口可乐(中杯)", True),
+        ("麦咖啡美式（中杯）", True),
+        ("麦咖啡美式", True),
+        ("雪碧（中杯）", True),
+        ("完全不存在的饮料XYZ", False),
+    ]
+    print("==== 咖啡因表模糊匹配 ====")
+    lookup_pass = 0
+    for name, should_hit in lookup_cases:
+        hit = lookup_item(name) is not None
+        ok = hit == should_hit
+        print(f"[{'PASS' if ok else 'FAIL'}] {name} → {'命中' if hit else '未命中'}")
+        if ok:
+            lookup_pass += 1
+        else:
+            failures.append(f"lookup:{name}")
+    print(f"==== 咖啡因表匹配 通过 {lookup_pass}/{len(lookup_cases)} ====")
+
     if failures:
         print("失败用例：" + "、".join(failures))
         return 1

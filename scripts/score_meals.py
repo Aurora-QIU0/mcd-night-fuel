@@ -33,6 +33,15 @@ DEFAULT_PROFILE = {
 DIME_KEYS = ("budget", "protein", "calorie", "sodium", "caffeine")
 
 
+def fmt_price(value) -> str:
+    """价格格式化：整数不带小数点（24.0 → 24，31.5 → 31.5）。"""
+    try:
+        num = float(value)
+    except (TypeError, ValueError):
+        return str(value)
+    return f"{num:.0f}" if abs(num - round(num)) < 0.005 else f"{num:.1f}"
+
+
 def _budget_score(price: float, budget: float) -> float:
     """预算利用率：用到预算的 85% 视为满分配置，超预算重罚。"""
     if budget <= 0:
@@ -139,7 +148,7 @@ def explain(combo: dict, detail: dict, profile: dict | None = None) -> str:
     parts: list[str] = []
 
     if detail["budget"] >= 80:
-        parts.append(f"券后 ¥{combo.get('price')} 卡在预算内")
+        parts.append(f"券后 ¥{fmt_price(combo.get('price'))} 卡在预算内")
     elif detail["budget"] < 50:
         parts.append("价格稍超预算")
 
@@ -170,9 +179,9 @@ def diff_note(combo: dict, top_combo: dict) -> str:
     notes = []
     d_price = float(combo.get("price", 0)) - float(top_combo.get("price", 0))
     if d_price <= -3:
-        notes.append(f"便宜 ¥{abs(round(d_price, 1))}")
+        notes.append(f"便宜 ¥{fmt_price(abs(d_price))}")
     elif d_price >= 3:
-        notes.append(f"贵 ¥{round(d_price, 1)}")
+        notes.append(f"贵 ¥{fmt_price(d_price)}")
 
     d_cal = float(combo.get("calories", 0)) - float(top_combo.get("calories", 0))
     if d_cal <= -150:

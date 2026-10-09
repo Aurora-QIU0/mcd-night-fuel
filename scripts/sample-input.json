@@ -1,15 +1,17 @@
 {
+  "_comment": "recommend.py --stdin 的输入示例。注意：本示例刻意使用「分」作为价格单位（price_unit=cent），用于演示单位自动换算。",
   "context": {
-    "now": "20:00",
-    "sleep": "02:00",
-    "budget": 35,
-    "work_hours": 6,
-    "need_caffeine": true
+    "now": "15:30",
+    "sleep": "23:30",
+    "budget": 20,
+    "work_hours": 3,
+    "need_caffeine": true,
+    "price_unit": "cent"
   },
   "combos": [
-    { "name": "麦辣鸡腿堡 + 中薯条 + 无糖可乐（中杯）", "price": 31.5, "calories": 780, "protein": 32, "sodium": 1580, "caffeine_mg": 50 },
-    { "name": "板烧鸡腿堡 + 无糖可乐（小杯）", "price": 18.0, "calories": 420, "protein": 24, "sodium": 980, "caffeine_mg": 34 },
-    { "name": "巨无霸 + 中薯条 + 麦咖啡美式（中杯）", "price": 42.0, "calories": 1020, "protein": 36, "sodium": 1900, "caffeine_mg": 150 },
-    { "name": "双层吉士堡 + 雪碧（中杯）", "price": 24.0, "calories": 560, "protein": 27, "sodium": 1240, "caffeine_mg": 0 }
+    { "name": "麦辣鸡腿堡 + 中薯条 + 无糖可乐（中杯）", "price": 3150, "original_price": 3900, "calories": 780, "protein": 32, "sodium": 1580, "caffeine_mg": 50 },
+    { "name": "板烧鸡腿堡 + 无糖可乐（小杯）", "price": 1800, "calories": 420, "protein": 24, "sodium": 980, "caffeine_mg": 34 },
+    { "name": "巨无霸 + 中薯条 + 麦咖啡美式（中杯）", "price": 4200, "calories": 1020, "protein": 36, "sodium": 1900, "caffeine_mg": 150 },
+    { "name": "双层吉士堡 + 雪碧（中杯）", "price": 2400, "calories": 560, "protein": 27, "sodium": 1240, "caffeine_mg": 0 }
   ]
 }

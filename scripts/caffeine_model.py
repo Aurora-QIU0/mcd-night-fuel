@@ -40,6 +40,49 @@ def load_table(path: Path = DATA_FILE) -> dict:
         }
 
 
+def _normalize(text: str) -> str:
+    """归一化文本：去掉括号、空白与常见分隔符，便于松散比对。"""
+    if not text:
+        return ""
+    for ch in "（）()【】[]·・-—_/　 ":
+        text = text.replace(ch, "")
+    return text.strip().lower()
+
+
+def lookup_item(name: str, table: dict | None = None) -> dict | None:
+    """按饮品名查找咖啡因数据，支持模糊匹配。
+
+    菜单里的饮品名常与数据表不完全一致（例如「可口可乐(中杯)」vs「可口可乐（中杯）」），
+    因此依次尝试：完全匹配 → 关键词包含匹配（取最具体的那个）。
+
+    Returns:
+        命中项 dict；未命中返回 None（调用方应回退为按 0 处理并在输出中标注）。
+    """
+    table = table or load_table()
+    items = table.get("items", [])
+    if not items:
+        return None
+
+    key = _normalize(name)
+    if not key:
+        return None
+
+    for item in items:
+        if _normalize(item.get("name", "")) == key:
+            return item
+
+    best: dict | None = None
+    best_len = 0
+    for item in items:
+        item_key = _normalize(item.get("name", ""))
+        if not item_key:
+            continue
+        if item_key in key or key in item_key:
+            if len(item_key) > best_len:
+                best, best_len = item, len(item_key)
+    return best
+
+
 def parse_clock(value: str, base: datetime | None = None) -> datetime:
     """解析 "HH:MM" 为 datetime。
 
